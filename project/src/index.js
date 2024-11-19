@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { WalletProvider, useWallet } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+  const wallets = [new PhantomWalletAdapter()];
+
 root.render(
   <React.StrictMode>
-    <App />
+    <WalletProvider wallets={wallets} autoConnect>
+      <WalletModalProvider>
+        <App />
+      </WalletModalProvider>
+    </WalletProvider>
+
   </React.StrictMode>
 );
 
